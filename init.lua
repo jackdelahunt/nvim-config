@@ -175,14 +175,14 @@ require('lazy').setup({
     },
   },
 
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help ibl`
-    main = 'ibl',
-    opts = {},
-  },
+  -- {
+  --   -- Add indentation guides even on blank lines
+  --   'lukas-reineke/indent-blankline.nvim',
+  --   -- Enable `lukas-reineke/indent-blankline.nvim`
+  --   -- See `:help ibl`
+  --   main = 'ibl',
+  --   opts = {},
+  -- },
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
@@ -271,6 +271,8 @@ vim.o.timeoutlen = 300
 vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
+-- Default terminal in MACOS does not support this 
+-- need to use ITerm for it on mac
 vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
@@ -511,7 +513,11 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
+  clangd = {
+    -- Need to pass -DCMAKE_EXPORT_COMPILE_COMMANDS=1 to cmake when generating
+    -- to get the `compile_commands.json`. Symlinking this to the root of the 
+    -- project will get clangd to work
+  },
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
