@@ -44,6 +44,13 @@ P.S. You can delete this when you're done too. It's your config now :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- stop zls from formatting on Save
+vim.g.zig_fmt_autosave = 0
+
+
+-- get variable type info on hover
+vim.lsp.buf.hover()
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -157,9 +164,22 @@ require('lazy').setup({
     'navarasu/onedark.nvim',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'onedark'
     end,
   },
+
+  {
+    "rebelot/kanagawa.nvim",
+    priority = 1000,
+    config = function()
+    end,
+   },
+  {
+    "kepano/flexoki-neovim",
+    priority = 1000,
+    config = function()
+    end,
+   },
+
 
   {
     -- Set lualine as statusline
@@ -168,7 +188,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'auto',
         component_separators = '|',
         section_separators = '',
       },
@@ -231,6 +251,10 @@ require('lazy').setup({
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
 }, {})
+
+-- [[ Setting the theme, installed above ^^ ]]
+vim.cmd.colorscheme 'slate'
+
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -518,12 +542,13 @@ local servers = {
     -- to get the `compile_commands.json`. Symlinking this to the root of the 
     -- project will get clangd to work
   },
-  -- gopls = {},
+  gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-  zls = {},
+  zls = {
+  },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
