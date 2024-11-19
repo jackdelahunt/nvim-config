@@ -157,29 +157,31 @@ require('lazy').setup({
         end, { expr = true, buffer = bufnr, desc = 'Jump to previous hunk' })
       end,
     },
+  }, 
+
+  -- installed themes
+  {
+    "EdenEast/nightfox.nvim", -- carbonfox, nightfox, terafox, nordfox, duskfox, dawnfox, dayfox
+    priority = 1,
+    config = function()
+    end,
   },
 
   {
-    -- Theme inspired by Atom
+    "eldritch-theme/eldritch.nvim",
+    priority = 1,
+    config = function()
+    end,
+  },
+  {
     'navarasu/onedark.nvim',
-    priority = 1000,
+    priority = 1,
     config = function()
+      require("onedark").setup {
+        style = "warmer"
+      }
     end,
   },
-
-  {
-    "rebelot/kanagawa.nvim",
-    priority = 1000,
-    config = function()
-    end,
-   },
-  {
-    "kepano/flexoki-neovim",
-    priority = 1000,
-    config = function()
-    end,
-   },
-
 
   {
     -- Set lualine as statusline
@@ -253,7 +255,7 @@ require('lazy').setup({
 }, {})
 
 -- [[ Setting the theme, installed above ^^ ]]
-vim.cmd.colorscheme 'slate'
+vim.cmd.colorscheme 'carbonfox'
 
 
 -- [[ Setting options ]]
@@ -633,5 +635,29 @@ cmp.setup {
   },
 }
 
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+-- code folding with treesitter
+vim.opt.foldmethod = "indent"
+-- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
+-- custom binds
+vim.keymap.set('n', '<leader>zb', function()
+  vim.api.nvim_command(":wa")
+  vim.api.nvim_command(":terminal zig build")
+  vim.api.nvim_command(":startinsert")
+end, {desc = "zig build"})
+
+vim.keymap.set('n', '<leader>zr', function()
+  vim.api.nvim_command(":wa")
+  vim.api.nvim_command(":terminal zig build run")
+  vim.api.nvim_command(":startinsert")
+end, {desc = "zig build run"})
+
+vim.keymap.set('n', '<leader>zs', function()
+  vim.api.nvim_command(":wa")
+  vim.api.nvim_command(":terminal zig build spline")
+  vim.api.nvim_command(":startinsert")
+end, {desc = "zig build spline"})
