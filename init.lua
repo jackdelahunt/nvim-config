@@ -47,6 +47,8 @@ vim.g.maplocalleader = ' '
 -- stop zls from formatting on Save
 vim.g.zig_fmt_autosave = 0
 
+vim.wo.relativenumber = true
+
 
 -- get variable type info on hover
 vim.lsp.buf.hover()
