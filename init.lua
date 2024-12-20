@@ -257,7 +257,7 @@ require('lazy').setup({
 }, {})
 
 -- [[ Setting the theme, installed above ^^ ]]
-vim.cmd.colorscheme 'carbonfox'
+vim.cmd.colorscheme 'desert'
 
 
 -- [[ Setting options ]]
@@ -546,12 +546,9 @@ local servers = {
     -- to get the `compile_commands.json`. Symlinking this to the root of the 
     -- project will get clangd to work
   },
-  gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
   zls = {
+  },
+  ols = {
   },
   lua_ls = {
     Lua = {
@@ -658,8 +655,8 @@ vim.keymap.set('n', '<leader>zr', function()
   vim.api.nvim_command(":startinsert")
 end, {desc = "zig build run"})
 
-vim.keymap.set('n', '<leader>zs', function()
+vim.keymap.set('n', '<leader>b', function()
   vim.api.nvim_command(":wa")
-  vim.api.nvim_command(":terminal zig build spline")
+  vim.api.nvim_command(":terminal .\\build.bat")
   vim.api.nvim_command(":startinsert")
-end, {desc = "zig build spline"})
+end, {desc = "build dot bat"})
