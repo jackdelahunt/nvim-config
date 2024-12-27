@@ -49,7 +49,6 @@ vim.g.zig_fmt_autosave = 0
 
 vim.wo.relativenumber = true
 
-
 -- get variable type info on hover
 vim.lsp.buf.hover()
 
@@ -165,18 +164,18 @@ require('lazy').setup({
   {
     "EdenEast/nightfox.nvim", -- carbonfox, nightfox, terafox, nordfox, duskfox, dawnfox, dayfox
     priority = 1,
+    lazy = false,
     config = function()
     end,
   },
-
   {
     "eldritch-theme/eldritch.nvim",
     priority = 1,
+    lazy = false,
     config = function()
     end,
   },
   {
-    'navarasu/onedark.nvim',
     priority = 1,
     config = function()
       require("onedark").setup {
@@ -184,7 +183,6 @@ require('lazy').setup({
       }
     end,
   },
-
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -252,8 +250,8 @@ require('lazy').setup({
   --    up-to-date with whatever is in the kickstart repo.
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
-  --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
+  --    For additional information see: https://lazy.folke.io/usage/structuring
+  { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting the theme, installed above ^^ ]]
