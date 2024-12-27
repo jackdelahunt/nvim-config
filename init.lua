@@ -38,6 +38,9 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now :)
 --]]
 
+-- Detect OS this is running on, some of my build commands change based on windows or macos or linux
+local current_os = vim.loop.os_uname().sysname
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -254,7 +257,7 @@ require('lazy').setup({
 }, {})
 
 -- [[ Setting the theme, installed above ^^ ]]
-vim.cmd.colorscheme 'desert'
+vim.cmd.colorscheme 'solarized'
 
 
 -- [[ Setting options ]]
@@ -640,6 +643,12 @@ vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
 -- custom binds
+local build_files = {
+  Windows_NT = ".\\build.bat",
+  Linux = "./build.sh",
+  Darwin = "./build.sh"
+}
+
 vim.keymap.set('n', '<leader>zb', function()
   vim.api.nvim_command(":wa")
   vim.api.nvim_command(":terminal zig build")
@@ -654,6 +663,6 @@ end, {desc = "zig build run"})
 
 vim.keymap.set('n', '<leader>b', function()
   vim.api.nvim_command(":wa")
-  vim.api.nvim_command(":terminal .\\build.bat")
+  vim.api.nvim_command(":terminal " .. build_files[current_os])
   vim.api.nvim_command(":startinsert")
 end, {desc = "build dot bat"})
