@@ -176,11 +176,10 @@ require('lazy').setup({
     end,
   },
   {
+    "maxmx03/solarized.nvim",
     priority = 1,
+    lazy = false,
     config = function()
-      require("onedark").setup {
-        style = "warmer"
-      }
     end,
   },
   {
