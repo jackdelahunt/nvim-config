@@ -172,6 +172,13 @@ require('lazy').setup({
     end,
   },
   {
+    "craftzdog/solarized-osaka.nvim",
+    priority = 1,
+    lazy = false,
+    config = function()
+    end,
+  },
+  {
     "eldritch-theme/eldritch.nvim",
     priority = 1,
     lazy = false,
@@ -257,8 +264,7 @@ require('lazy').setup({
 }, {})
 
 -- [[ Setting the theme, installed above ^^ ]]
-vim.cmd.colorscheme 'solarized'
-
+vim.cmd.colorscheme 'desert'
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -642,6 +648,11 @@ vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decr
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.expandtab = true
+
 -- custom binds
 local build_files = {
   Windows_NT = ".\\build.bat",
@@ -649,20 +660,24 @@ local build_files = {
   Darwin = "./build.sh"
 }
 
-vim.keymap.set('n', '<leader>zb', function()
-  vim.api.nvim_command(":wa")
-  vim.api.nvim_command(":terminal zig build")
-  vim.api.nvim_command(":startinsert")
-end, {desc = "zig build"})
-
-vim.keymap.set('n', '<leader>zr', function()
-  vim.api.nvim_command(":wa")
-  vim.api.nvim_command(":terminal zig build run")
-  vim.api.nvim_command(":startinsert")
-end, {desc = "zig build run"})
-
 vim.keymap.set('n', '<leader>b', function()
   vim.api.nvim_command(":wa")
-  vim.api.nvim_command(":terminal " .. build_files[current_os])
-  vim.api.nvim_command(":startinsert")
-end, {desc = "build dot bat"})
+  vim.api.nvim_command(":!" .. build_files[current_os])
+end, {desc = "run build file based on os"})
+
+vim.keymap.set('n', '<C-h>', function()
+  vim.api.nvim_command(":wa")
+  vim.api.nvim_command(":wincmd h")
+end, {desc = "mode to left pane"})
+
+vim.keymap.set('n', '<C-l>', function()
+  vim.api.nvim_command(":wa")
+  vim.api.nvim_command(":wincmd l")
+end, {desc = "mode to right pane"})
+
+vim.keymap.set('n', '<leader>l', function()
+  vim.api.nvim_command(":wa")
+  vim.api.nvim_command(":vsplit")
+  vim.api.nvim_command(":wincmd l")
+  require('telescope.builtin').find_files() -- same as leader sf
+end, {desc = "vertival split"})
