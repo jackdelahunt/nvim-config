@@ -263,8 +263,7 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 }, {})
 
--- [[ Setting the theme, installed above ^^ ]]
-vim.cmd.colorscheme 'desert'
+vim.cmd.colorscheme 'solarized'
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -640,6 +639,8 @@ cmp.setup {
   },
 }
 
+-- custom things
+
 -- code folding with treesitter
 vim.opt.foldmethod = "indent"
 -- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
@@ -653,28 +654,43 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.expandtab = true
 
--- custom binds
+-- neovide config
+if vim.g.neovide then
+    vim.g.neovide_fullscreen = false
+
+    vim.g.neovide_position_animation_length = 0.1
+    vim.g.neovide_scroll_animation_length = 0.2
+    vim.g.neovide_cursor_animation_length = 0.03
+    vim.g.neovide_cursor_trail_size = 0.3
+    vim.g.neovide_refresh_rate = 244 -- if more then refresh rate then refresh is used
+    vim.g.neovide_refresh_rate_idle = 2
+end
+
 local build_files = {
   Windows_NT = ".\\build.bat",
   Linux = "./build.sh",
   Darwin = "./build.sh"
 }
 
+-- run build file
 vim.keymap.set('n', '<leader>b', function()
   vim.api.nvim_command(":wa")
   vim.api.nvim_command(":!" .. build_files[current_os])
 end, {desc = "run build file based on os"})
 
+-- move to left window
 vim.keymap.set('n', '<C-h>', function()
   vim.api.nvim_command(":wa")
   vim.api.nvim_command(":wincmd h")
 end, {desc = "mode to left pane"})
 
+-- move to right window
 vim.keymap.set('n', '<C-l>', function()
   vim.api.nvim_command(":wa")
   vim.api.nvim_command(":wincmd l")
 end, {desc = "mode to right pane"})
 
+-- open new vertical window
 vim.keymap.set('n', '<leader>l', function()
   vim.api.nvim_command(":wa")
   vim.api.nvim_command(":vsplit")
