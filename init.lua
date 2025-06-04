@@ -82,23 +82,28 @@ require('lazy').setup({
     },
   },
 
+  -- {
+  --   'github/copilot.vim'
+  -- },
+
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
 
-  { -- file tree viewer
+  { -- file tree viewer https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt
       "nvim-tree/nvim-tree.lua",
-      version = "*",
+      version = "v1.10.0",
       lazy = false,
       dependencies = {
         "nvim-tree/nvim-web-devicons",
       },
       config = function()
-        require("nvim-tree").setup {
+        require("nvim-tree").setup({
             sort = {
               sorter = "case_sensitive",
             },
             view = {
               width = 40,
+              side = "right"
             },
             renderer = {
               group_empty = true,
@@ -106,27 +111,13 @@ require('lazy').setup({
             filters = {
               dotfiles = true,
             },
-        }
+        })
       end,
   },
 
   -- installed themes
   {
-    "EdenEast/nightfox.nvim", -- carbonfox, nightfox, terafox, nordfox, duskfox, dawnfox, dayfox
-    priority = 1,
-    lazy = false,
-    config = function()
-    end,
-  },
-  {
     "craftzdog/solarized-osaka.nvim",
-    priority = 1,
-    lazy = false,
-    config = function()
-    end,
-  },
-  {
-    "eldritch-theme/eldritch.nvim",
     priority = 1,
     lazy = false,
     config = function()
@@ -443,6 +434,7 @@ require('which-key').register {
 require('mason').setup()
 require('mason-lspconfig').setup()
 
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#lsp-configs
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
@@ -450,6 +442,7 @@ local servers = {
     -- Need to pass -DCMAKE_EXPORT_COMPILE_COMMANDS=1 to cmake when generating
     -- to get the `compile_commands.json`. Symlinking this to the root of the 
     -- project will get clangd to work
+    filetypes = {"c", "cpp", "h", "hpp"}
   },
   zls = {
   },
